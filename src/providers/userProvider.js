@@ -2,12 +2,15 @@ const User = require('../models/user.model');
 
 
 const createUser = async (user) => {
-    try {
-        const newUser = await User.create(user);
-        return newUser;
-    } catch (error) {
-        return error
-    }
+    const newUser = await User.create(user);
+    return newUser;
+    
 }
 
-module.exports = {createUser}
+const findUserByEmail = async (email) => {
+    const user = await User.findOne({ where: { email } });
+    return user;
+  
+};
+
+module.exports = {createUser, findUserByEmail}

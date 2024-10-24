@@ -8,7 +8,7 @@ const userRouter = require('./src/routes/user');
 // Middleware para parsear JSON
 app.use(express.json());
 
-app.use(userRouter)
+app.use('/auth',userRouter)
 
 sequelize.sync()
   .then(() => {
