@@ -1,9 +1,6 @@
 const jwt = require('jsonwebtoken');
 const {errorResponse} = require('../utilities/error-response')
 
-// Define tu clave secreta, puede ser guardada en una variable de entorno
-const SECRET_KEY = process.env.JWT_SECRET || 'tuClaveSecreta';
-
 const authenticateToken = (req, res, next) => {
     //const token = req.headers['authorization'];
     const token = req.headers.authorization?.split(' ')[1] ?? null;
@@ -13,7 +10,7 @@ const authenticateToken = (req, res, next) => {
     }
 
     // Verifica el token
-    jwt.verify(token, SECRET_KEY, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
             return res.status(403).json(errorResponse(403, 'Invalid Token'));
         }
