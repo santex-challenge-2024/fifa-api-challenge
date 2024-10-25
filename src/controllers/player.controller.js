@@ -6,10 +6,16 @@ const playerService = require('../services/playerService')
 
 const getAllPlayers = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const filters = {
+        name: req.query.name,
+        club: req.query.club,
+        position: req.query.position
+    };
     
     try {
-        const players = await playerService.getAllPlayers(page,limit);
+        const players = await playerService.getAllPlayers(page,limit, filters);
         res.status(200).json(successResponse(200, 'Players', players));
     } catch (error) {
         const statusCode = error.status || 500;
