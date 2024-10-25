@@ -18,10 +18,9 @@ const loginUser = async (req, res) => {
         res.status(200).json(successResponse(200, 'login ok', {accessToken}));
 
     } catch (error) {
-        if (error.status && error.message) {
-            return res.status(error.status).json(errorResponse(error.status, error.message));
-        }
-        return res.status(500).json(errorResponse(500, 'Internal Server Error'));
+        const statusCode = error.status || 500;
+        const message = error.message || 'Internal Server Error';
+        res.status(statusCode).json(errorResponse(statusCode, message));
     }
 }
 
@@ -44,10 +43,9 @@ const createUser = async (req, res) => {
         const newUser = await userService.createNewUser(user);
         res.status(201).json(successResponse(201, 'User created successfully', newUser));
     } catch (error) {
-        if (error.status && error.message) {
-            return res.status(error.status).json(errorResponse(error.status, error.message));
-        }
-        return res.status(500).json(errorResponse(500, 'Internal Server Error'));
+        const statusCode = error.status || 500;
+        const message = error.message || 'Internal Server Error';
+        res.status(statusCode).json(errorResponse(statusCode, message));
     }
 };
 
