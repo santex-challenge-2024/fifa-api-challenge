@@ -1,8 +1,8 @@
 const playerProvider = require('../providers/playerProvider');
 
 
-const getAllPlayers = async () => {
-    return await playerProvider.getAll()
+const getAllPlayers = async (page,limit) => {
+    return await playerProvider.getAll(page,limit)
 }
 
 module.exports = {getAllPlayers}
