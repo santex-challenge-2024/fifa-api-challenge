@@ -7,7 +7,7 @@ const playerService = require('../services/playerService')
 const getAllPlayers = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-
+    const format = req.query.format;
     const filters = {
         name: req.query.name,
         club: req.query.club,
@@ -15,8 +15,14 @@ const getAllPlayers = async (req, res) => {
     };
     
     try {
-        const players = await playerService.getAllPlayers(page,limit, filters);
-        res.status(200).json(successResponse(200, 'Players', players));
+        const data = await playerService.getAllPlayers(page,limit, filters, format);
+        if (format === 'csv') {
+            res.setHeader('Content-Type', 'text/csv');
+            res.setHeader('Content-Disposition', 'attachment; filename=players.csv');
+            return res.status(200).send(data);
+        }
+
+        res.status(200).json(successResponse(200, 'Players', data));
     } catch (error) {
         const statusCode = error.status || 500;
         const message = error.message || 'Internal Server Error';
