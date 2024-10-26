@@ -42,4 +42,25 @@ const getPlayer = async (req, res) => {
     }
 };
 
-module.exports = { getAllPlayers, getPlayer }
+
+const updateOnePlayer = async (req, res) => {
+    const playerId = parseInt(req.params.id);
+    console.log(req.body);
+
+    try {
+        const errors = validationResult(req);
+            //if error validator contain error
+        if (!errors.isEmpty()) {
+            return res.status(400).json(errorResponse(400, "validator error", errors.array().map(error => error.msg)));
+        }
+        const updatePlayer = await playerService.updatePlayer(playerId, req.body);
+        res.status(200).json(successResponse(200, 'Update Player', updatePlayer));
+    } catch (error) {
+        const statusCode = error.status || 500;
+        const message = error.message || 'Internal Server Error';
+        res.status(statusCode).json(errorResponse(statusCode, message));
+    }
+    
+}
+
+module.exports = { getAllPlayers, getPlayer, updateOnePlayer }

@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const Player = require('../models/players.model')
 
 
@@ -16,4 +17,9 @@ const getOne = async (id) =>{
     return await Player.findOne({where: {id: id}});
 };
 
-module.exports = {getAll, getOne}
+
+const update = async (playerId, updatePlayer) => {
+    return await Player.update(updatePlayer, {where: {id: playerId}})
+}
+
+module.exports = {getAll, getOne, update}

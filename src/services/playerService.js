@@ -45,4 +45,33 @@ const getOnePlayer = async (id) => {
     return player;
 };
 
-module.exports = {getAllPlayers, getOnePlayer}
+
+const updatePlayer = async (playerId, updatePlayer) => {
+    const player = await getOnePlayer(playerId);
+
+     // Filtrar campos vacíos
+     const updatedData = {};
+     const fieldsToUpdate = ['long_name', 'player_positions', 'club_name', 'nationality_name', 'overall'];
+     
+     //filtra cada campo y guarda en updateData solo los que vengan con datos
+     fieldsToUpdate.forEach(field => {
+         if (updatePlayer[field]) { 
+             updatedData[field] = updatePlayer[field];
+         }
+     });
+     
+     
+     //si no viene ningun dato corta la ejecucion para no actualizar
+     if (Object.keys(updatedData).length === 0) {
+         throw { status: 400, message: 'No valid fields provided for update.' }; // Manejo de error si no hay campos válidos
+     }
+    
+     //actualiza con los campos que si vienen
+    await playerProvider.update(player.id, updatedData);
+
+    //traigo el jugador actualizado (sequelize me devuelve solo el numero de registros afectados)
+    const playerUpdated = await getOnePlayer(playerId);
+    return playerUpdated;
+}
+
+module.exports = {getAllPlayers, getOnePlayer, updatePlayer}
