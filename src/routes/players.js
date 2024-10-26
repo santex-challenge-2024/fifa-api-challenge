@@ -5,4 +5,6 @@ const authenticateToken = require('../middleware/auth.middleware')
 
 router.get('/', authenticateToken, playerController.getAllPlayers);
 
+router.get('/:id', authenticateToken, playerController.getPlayer)
+
 module.exports = router;

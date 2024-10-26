@@ -10,6 +10,10 @@ const getAll = async (page, limit, where) => {
         limit: limit,
         offset: offset
     });
-}
+};
 
-module.exports = {getAll}
+const getOne = async (id) =>{
+    return await Player.findOne({where: {id: id}});
+};
+
+module.exports = {getAll, getOne}

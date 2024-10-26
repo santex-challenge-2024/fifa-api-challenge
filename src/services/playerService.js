@@ -37,4 +37,12 @@ const getAllPlayers = async (page, limit, filters, format) => {
 
 }
 
-module.exports = {getAllPlayers}
+const getOnePlayer = async (id) => {
+    const player = await playerProvider.getOne(id);
+    if (!player) {
+        throw { status: 401, message: 'Player not found' };
+    };
+    return player;
+};
+
+module.exports = {getAllPlayers, getOnePlayer}

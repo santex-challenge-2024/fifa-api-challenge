@@ -30,4 +30,16 @@ const getAllPlayers = async (req, res) => {
     }
 }
 
-module.exports = { getAllPlayers }
+const getPlayer = async (req, res) => {
+    const id = parseInt(req.params.id);
+    try {
+        const player = await playerService.getOnePlayer(id);
+        res.status(200).json(successResponse(200, 'Player', player));
+    } catch (error) {
+        const statusCode = error.status || 500;
+        const message = error.message || 'Internal Server Error';
+        res.status(statusCode).json(errorResponse(statusCode, message));
+    }
+};
+
+module.exports = { getAllPlayers, getPlayer }
