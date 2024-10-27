@@ -14,12 +14,7 @@ const getAllPlayers = async (req, res) => {
   };
 
   try {
-    const data = await playerService.getAllPlayers(
-      page,
-      limit,
-      filters,
-      format,
-    );
+    const data = await playerService.getAllPlayers(page, limit, filters, format);
     if (format === 'csv') {
       res.setHeader('Content-Type', 'text/csv');
       res.setHeader('Content-Disposition', 'attachment; filename=players.csv');
@@ -65,4 +60,26 @@ const updateOnePlayer = async (req, res) => {
   }
 };
 
-module.exports = { getAllPlayers, getPlayer, updateOnePlayer };
+const createNewPlayer = async (req, res) => {
+  try {
+    const errors = validationResult(req);
+
+    //if error validator contain error
+    if (!errors.isEmpty()) {
+      return res.status(400).json(
+        errorResponse(
+          400,
+          'validator error',
+          errors.array().map((error) => error.msg),
+        ),
+      );
+    }
+
+    const newPlayer = await playerService.createPlayer(req.body);
+    res.status(201).json(successResponse(201, 'Create Player', newPlayer));
+  } catch (error) {
+    handleError(error, res);
+  }
+};
+
+module.exports = { getAllPlayers, getPlayer, updateOnePlayer, createNewPlayer };

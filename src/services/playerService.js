@@ -73,4 +73,8 @@ const updatePlayer = async (playerId, updatePlayer) => {
   return playerUpdated;
 };
 
-module.exports = { getAllPlayers, getOnePlayer, updatePlayer };
+const createPlayer = async (player) => {
+  return await playerProvider.createPlayer(player);
+};
+
+module.exports = { getAllPlayers, getOnePlayer, updatePlayer, createPlayer };

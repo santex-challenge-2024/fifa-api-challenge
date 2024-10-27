@@ -50,9 +50,8 @@ const createUser = async (req, res) => {
       password,
     };
     const newUser = await userService.createNewUser(user);
-    res
-      .status(201)
-      .json(successResponse(201, 'User created successfully', newUser));
+
+    res.status(201).json(successResponse(201, 'User created successfully', newUser));
   } catch (error) {
     handleError(error, res);
   }

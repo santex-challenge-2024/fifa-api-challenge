@@ -20,4 +20,8 @@ const update = async (playerId, updatePlayer) => {
   return await Player.update(updatePlayer, { where: { id: playerId } });
 };
 
-module.exports = { getAll, getOne, update };
+const createPlayer = async (player) => {
+  return await Player.create(player);
+};
+
+module.exports = { getAll, getOne, update, createPlayer };
