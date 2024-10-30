@@ -37,7 +37,10 @@ const User = sequelize.define('Users', {
     validate: {
       notEmpty: true,
     },
-  },
+  }
+}, {
+  tableName: 'Users',
+  timestamps: false
 });
 
 module.exports = User;

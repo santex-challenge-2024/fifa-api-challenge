@@ -20,3 +20,4 @@ sequelize
   });
 
 module.exports = sequelize;
+
