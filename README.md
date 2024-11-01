@@ -5,7 +5,8 @@
 - **Auteticacion de usuario**: Permite a los usuarios registrarse e iniciar session, me devuelve un token de acceso (jwt) que luego lo guardo en mi LocalStorage de mi aplicacion Angular. Esto es necesario para poder acceder a la rutas de la pagina.
 - **Listado de jugadores**: Permite a los usuarios poder ver una lista de todos los jugadores del Fifa, a su vez, pueden filtrar por nombre, club, posicion. y tambien pueden ver por paginas y descargar un archivo .csv
 - **Crear un jugador**: Permite a los usuarios poder crearse como un jugador.
-- **Actualizar Jugador**: Parmite a los usuarios poder actualizar un jugador.
+- **Actualizar Jugador**: Permite a los usuarios poder actualizar un jugador.
+- **Buscar jugador por id**: Permite a los usuarios poder buscar jugador por su id. 
 
 ## Paquetes utilizados
 
